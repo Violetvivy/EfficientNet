@@ -125,5 +125,9 @@ examples/imagenet/run.sh
 
 data/
 
+*.jpg
+*.png
+*.jpeg
+
 
 

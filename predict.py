@@ -6,8 +6,8 @@ import sys
 
 
 # 此处设置图片路径和模型权重路径
-image_path = 'test.jpg'  # 修改为你的图片路径
-model_path = 'efficientnet_b4_epoch10.pth'  # 修改为你的模型权重路径
+image_path = 'fair-apple5.jpg'  # 图片路径
+model_path = 'efficientnet_b4_best.pth'  # 模型权重路径
 
 # 数据预处理
 transform = transforms.Compose([
@@ -17,14 +17,14 @@ transform = transforms.Compose([
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
 
-# 加载类别名（假设与训练集一致）
+# 加载类别名
 import os
 train_dir = 'data/dataset/train'
 class_names = sorted(os.listdir(train_dir))
 
 # 加载模型
 model = EfficientNet.from_name('efficientnet-b4', num_classes=len(class_names))
-model.load_state_dict(torch.load(model_path, map_location='cpu'))
+model.load_state_dict(torch.load(model_path, map_location='cuda' if torch.cuda.is_available() else 'cpu'))
 model.eval()
 
 # 读取图片并预处理
